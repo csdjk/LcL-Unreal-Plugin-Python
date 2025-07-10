@@ -187,8 +187,12 @@ def create_python_tool_menu_entry(
 #         )
 #     return menu_entry
 
+#内置Icon https://github.com/EpicKiwi/unreal-engine-editor-icons
 def create_toolbar_button(
-    name:str, label:str, section_name:str="", icons =["EditorStyle", "LevelEditor.EditorModes", "LevelEditor.EditorModes"], command_string="", register_button=True
+    name:str, label:str, section_name:str="", 
+    tool_tip:str="",    
+    icons =["EditorStyle", "Editor.AppIcon", "Editor.AppIcon"],
+    command_string="", register_button=True
 ) -> ToolMenuEntry:
     button = create_python_tool_menu_entry(
         name=name, 
@@ -197,7 +201,8 @@ def create_toolbar_button(
         entry_type=unreal.MultiBlockType.TOOL_BAR_BUTTON
     )
 
-    # button.set_icon(*icons)
+    button.set_icon(*icons)
+    button.set_tool_tip(tool_tip)
     if register_button:
         get_toolbar().add_menu_entry(section_name, button)
     return button

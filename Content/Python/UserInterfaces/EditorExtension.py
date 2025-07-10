@@ -93,19 +93,23 @@ def extend_editor():
     unreal_uiutils.create_toolbar_button(
         name="ShowActor",
         label="Show",
+        tool_tip="显示选中的Actor",
+        icons = ["EditorStyle", "GenericViewButton"],
         command_string="from UserInterfaces import quick_hide; quick_hide.show_select_actor()",
     )
     unreal_uiutils.create_toolbar_button(
         name="HideActor",
         label="Hide",
+        tool_tip="隐藏选中的Actor",
+        icons = ["EditorStyle", "Kismet.VariableList.HideForInstance"],
         command_string="from UserInterfaces import quick_hide; quick_hide.hide_select_actor()",
     )
-    # 
-    me_test = unreal_uiutils.create_python_tool_menu_entry(
-        name="TestBtn",
-        label="Test",
-        command_string="from UserInterfaces import quick_hide; quick_hide.hide_select_actor()",
-    )
-    new_mainmenu.add_menu_entry("utilities", me_test)
+    # 菜单
+    # me_test = unreal_uiutils.create_python_tool_menu_entry(
+    #     name="TestBtn",
+    #     label="Test",
+    #     command_string="from UserInterfaces import quick_hide; quick_hide.hide_select_actor()",
+    # )
+    # new_mainmenu.add_menu_entry("utilities", me_test)
 
 extend_editor()
