@@ -73,23 +73,24 @@ def extend_editor():
     # declare menu entry
     me_reloadbutton = unreal_uiutils.create_python_tool_menu_entry(
         name="ReloadScriptsBtn",
-        label="Reload Script",
+        label="重载脚本",
         command_string="import importlib; import unreal_startup; importlib.reload(unreal_startup); unreal_startup.reload()",
     )
-    me_quitbutton = unreal_uiutils.create_python_tool_menu_entry(
-        name="RestartUnrealBtn",
-        label="Restart Unreal",
-        command_string="import unreal_utils; unreal_utils.restart_editor()",
-    )
-   
-
     #创建独立菜单并注册上面创建的菜单项
     new_mainmenu = unreal_uiutils.extend_mainmenu("LcLTools", "LcL Tools")
     utils_section = new_mainmenu.add_section("reload", "Reload Tools")
     new_mainmenu.add_menu_entry("reload", me_reloadbutton)
-    new_mainmenu.add_menu_entry("reload", me_quitbutton)
     
+    # =========================================工具栏 按钮======================================================
      # This create a button on toolboard
+    unreal_uiutils.create_toolbar_button(
+        name="RestartUnrealBtn",
+        label="RestartUE",
+        tool_tip="重启UE编辑器",
+        icons = ["EditorStyle", "Cascade.RestartInLevel.Small"],
+        command_string="import unreal_utils; unreal_utils.restart_editor()",
+    )
+   
     unreal_uiutils.create_toolbar_button(
         name="ShowActor",
         label="Show",
@@ -104,6 +105,7 @@ def extend_editor():
         icons = ["EditorStyle", "Kismet.VariableList.HideForInstance"],
         command_string="from UserInterfaces import quick_hide; quick_hide.hide_select_actor()",
     )
+    
     # 菜单
     # me_test = unreal_uiutils.create_python_tool_menu_entry(
     #     name="TestBtn",

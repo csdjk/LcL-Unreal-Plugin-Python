@@ -45,12 +45,15 @@ def get_outer_package():
     return unreal.find_object(None, "/Engine/Transient")
 
 def restart_editor():
-
-    project_path = unreal.Paths.convert_relative_path_to_full(unreal.Paths.get_project_file_path())
-    engine_dir = unreal.Paths.convert_relative_path_to_full(unreal.Paths.engine_dir())
-    editor_path = f"{engine_dir}Binaries/Win64/UnrealEditor.exe"
-    subprocess.Popen([editor_path, project_path])
-    unreal.SystemLibrary.quit_editor()
+    if(unreal.EditorLoadingAndSavingUtils.save_dirty_packages_with_dialog(True,True)):
+        project_path = unreal.Paths.convert_relative_path_to_full(unreal.Paths.get_project_file_path())
+        engine_dir = unreal.Paths.convert_relative_path_to_full(unreal.Paths.engine_dir())
+        editor_path = f"{engine_dir}Binaries/Win64/UnrealEditor.exe"
+        subprocess.Popen([editor_path, project_path])
+        unreal.SystemLibrary.quit_editor()
+    else:
+        print("Failed to save some dirty packages. Restarting editor anyway.")
+    
 
 def create_unreal_asset(
     asset_name, package_path, factory, asset_class, force=False, save=True
